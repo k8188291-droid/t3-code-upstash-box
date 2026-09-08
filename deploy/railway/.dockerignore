@@ -1,3 +1,5 @@
 **
 !Dockerfile
 !start.sh
+!backup.py
+!supervisor.py

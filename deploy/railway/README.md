@@ -57,3 +57,8 @@ References:
 - https://docs.railway.com/networking/public-networking/specs-and-limits
 - https://docs.railway.com/cli/ssh
 - https://github.com/pingdotgg/t3code/blob/main/docs/user/remote-access.md
+
+## Encrypted backups
+
+Railway Bucket backups and guarded deletion/restore commands are documented in
+[BACKUPS.md](BACKUPS.md). Automatic sleep remains enabled.

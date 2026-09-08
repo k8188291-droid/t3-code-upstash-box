@@ -7,8 +7,14 @@ if [ -n "${RAILWAY_PROJECT_ID:-}" ] && [ "${RAILWAY_VOLUME_MOUNT_PATH:-}" != /ho
   exit 1
 fi
 
+if [ -n "${RESTIC_REPOSITORY:-}" ]; then
+  backupctl init
+fi
+if [ -n "${T3_RESTORE_SNAPSHOT:-}" ] && [ ! -f /home/node/.restore-complete ]; then
+  backupctl restore --snapshot "$T3_RESTORE_SNAPSHOT" --target /home/node
+  printf '%s\n' "$T3_RESTORE_SNAPSHOT" > /home/node/.restore-complete
+fi
 mkdir -p /home/node/workspaces /home/node/.t3 /home/node/.codex
 chown node:node /home/node /home/node/workspaces /home/node/.t3 /home/node/.codex
 cd /home/node/workspaces
-exec gosu node t3 serve --host 0.0.0.0 --port "${PORT:-3773}" \
-  --base-dir /home/node/.t3 /home/node/workspaces
+exec /usr/local/bin/t3-supervisor
