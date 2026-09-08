@@ -6,7 +6,11 @@ Build context: this directory (`deploy/railway`). The image installs T3 Code
 Railway service settings:
 
 - Attach one persistent volume at `/home/node` before the first deployment.
-- Use one replica and disable Serverless/sleep for background agent work.
+- Use one replica. Serverless (automatic sleep) is enabled for this deployment.
+  Railway sleeps the service after roughly 5–10 minutes without outbound
+  traffic and wakes it on incoming requests. Active connections/heartbeats can
+  keep it awake. Disable Serverless for uninterrupted background agent work.
+  Changes to this setting require a deployment to apply to the container.
 - Generate a public HTTPS domain targeting port 3773 (`PORT=3773`).
 - Railway healthcheck path: `/`. Verify server metadata separately at
   `/.well-known/t3/environment`.
