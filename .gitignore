@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+**/.box-id
+**/.boxes/
+node_modules/
+/tools/box/
+*.log
+*.pem
+*.key
+.DS_Store

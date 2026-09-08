@@ -1,0 +1,12 @@
+{
+  "name": "t3-code-upstash-box",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "launch-box": "node --env-file=.env tools/launch-box/index.mjs",
+    "t3:pair": "node --env-file=.env tools/launch-box/pair.mjs"
+  },
+  "dependencies": {
+    "@upstash/box": "latest"
+  }
+}
