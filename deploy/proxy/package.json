@@ -1,0 +1,1 @@
+{"name":"t3-box-proxy","private":true,"type":"module","scripts":{"start":"node server.mjs","test":"node --test"},"dependencies":{"@upstash/box":"0.7.2","ws":"^8.18.0"}}

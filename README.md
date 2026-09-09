@@ -44,12 +44,11 @@ npm run launch-box -- ./tools/launch-box/setup/setup.t3.sh 3773 my-t3-box
 2. 上傳 setup 與 `t3-background.sh`。
 3. 使用預裝的 Codex CLI；找不到時才安裝至使用者目錄。
 4. 安裝 `t3@0.0.39`，背景監聽 `0.0.0.0:3773`，檢查服務就緒。
-5. 建立每 30 分鐘執行 `date` 的排程，寫入 `/workspace/home/keepalive.log`。
-6. 建立 3773 的 Public URL，不加 Basic Auth。
-7. 執行 **`t3 pair`**，輸出一次性配對碼、到期時間及使用 Public URL 的配對連結。
+5. 建立 3773 的 Public URL，不加 Basic Auth。
+6. 執行 **`t3 pair`**，輸出一次性配對碼、到期時間及使用 Public URL 的配對連結。
 
 保留終端顯示的 Box ID。連線資訊保存在
-`tools/launch-box/.boxes/<box-id>.json`，包含 Public URL 與排程 ID。
+`tools/launch-box/.boxes/<box-id>.json`，包含 Public URL；不建立保活排程。
 配對碼只顯示於終端，不寫入此 JSON。
 
 ## 4. 配對裝置
@@ -97,7 +96,7 @@ T3 裝置配對與 Codex 登入是兩個步驟。
 ## 7. 停用測試環境
 
 在 Upstash Console 中找到對應 Box ID。不再使用時可以刪除；刪除會永久移除
-Box 內的檔案與狀態。若只要暫停，先暫停它的 30 分鐘排程，再暫停 Box。
+Box 內的檔案與狀態。若只要暫停，可直接暫停 Box。
 
 `date` 排程會產生活動，但不保證服務永不暫停，也不等同於 `keepAlive: true`。
 
@@ -106,3 +105,7 @@ Box 內的檔案與狀態。若只要暫停，先暫停它的 30 分鐘排程，
 setup 或配對失敗會保留已建立的 Box，並顯示 ID。先 SSH 檢查日誌，
 不要直接重跑啟動指令，因為那會建立另一台 Box。
 若只是配對失敗且 JSON 已有 Public URL，可用 `npm run t3:pair -- <box-id>` 重試。
+
+## Railway Chisel Proxy
+
+固定網址、保留客戶端 WebSocket、操作時喚醒及一小時閒置暫停，見 [部署文件](deploy/proxy/README.md)。

@@ -73,13 +73,6 @@ try {
     throw new Error(`setup script 執行失敗：${setup.stderr || setup.result}`);
   }
 
-  console.log("正在建立每 30 分鐘執行一次的 date 排程...");
-  const schedule = await box.schedule.exec({
-    cron: "*/30 * * * *",
-    command: ["bash", "-c", "date >> /workspace/home/keepalive.log"],
-    folder: "/workspace/home",
-  });
-
   console.log(`正在開啟 port ${port} 的 Public URL...`);
   const publicURL = await box.getPublicURL(port);
 
@@ -92,7 +85,6 @@ try {
         port,
         setupPath,
         publicUrl: publicURL.url,
-        scheduleId: schedule.id,
       },
       null,
       2,
@@ -103,7 +95,6 @@ try {
   console.log("\nBox 準備完成");
   console.log(`Box ID：${box.id}`);
   console.log(`Public URL：${publicURL.url}`);
-  console.log(`Schedule ID：${schedule.id}`);
   console.log(`SSH：ssh ${box.id}@us-east-1.box.upstash.com`);
   console.log(`紀錄：tools/launch-box/.boxes/${box.id}.json`);
 
